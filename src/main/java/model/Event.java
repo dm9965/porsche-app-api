@@ -9,7 +9,6 @@ public class Event {
   private String eventDetails;
   private LocalDate eventStartDate;
   private LocalDate eventEndDate;
-
   public Event(String eventID, String eventName,
                String eventLocation, String eventDetails,
                int eventStartMonth, int eventStartDay,
