@@ -1,18 +1,28 @@
 package model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Objects;
 
 public class User {
+  @JsonProperty("fullName")
   private String fullName;
+  @JsonProperty("username")
   private String username;
+  @JsonProperty("password")
   private String password;
 
   public User(String fullName, String username, String password) {
     this.fullName = fullName;
     this.username = username;
     this.password = password;
+  }
+
+  public User() {
+
   }
 
   public String getFullName() {
@@ -34,21 +44,13 @@ public class User {
     this.password = password;
   }
 
-  public String hashPassword() {
-    try {
-      MessageDigest digest = MessageDigest.getInstance("SHA-256");
-      byte[] hashedBytes = digest.digest(password.getBytes(StandardCharsets.UTF_8));
-
-      // Convert the byte array to a hexadecimal string
-      StringBuilder stringBuilder = new StringBuilder();
-      for (byte byteBeingHashed : hashedBytes) {
-        stringBuilder.append(String.format("%02x", byteBeingHashed));
-      }
-      return stringBuilder.toString();
-    } catch (NoSuchAlgorithmException e) {
-      // Handle exception if the specified algorithm is not available
-      e.printStackTrace();
-    }
-    return null; // Return null if hashing fails
+  @Override
+  public String toString() {
+    return "User Info { Name: " + fullName + ", Username: "
+            + username + ", Password: " + password + "}";
+  }
+  @Override
+  public int hashCode() {
+    return Objects.hash(username, password);
   }
 }
